@@ -2,15 +2,11 @@
 # rnn-text-predictor
 import numpy as np
 
-# إعداد البيانات
 word_to_idx = {"I": 0, "love": 1, "deep": 2, "learning": 3}
 idx_to_word = {v: k for k, v in word_to_idx.items()}
 
-# الجملة: I love deep -> learning
 input_seq = [0, 1, 2]
 target = 3
-
-# تحويل إلى one-hot
 def one_hot(index, vocab_size):
     vec = np.zeros(vocab_size)
     vec[index] = 1
@@ -50,8 +46,6 @@ for epoch in range(1000):
     p = softmax(y)
     
     loss = -np.sum(target_vec.reshape(-1, 1) * np.log(p))
-
-    # Backward pass (مبسطة جدًا)
     dWhy = np.dot((p - target_vec.reshape(-1, 1)), hs[len(inputs) - 1].T)
     dby = p - target_vec.reshape(-1, 1)
     Why -= learning_rate * dWhy
